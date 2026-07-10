@@ -1,16 +1,14 @@
 import { IMAGE_BASE_URL } from "./constants";
 
-const moviesList = document.querySelector(".movies-list");
-
 function createMovieCard(movie) {
   return `
-    <div class="movie-card">
+    <a href="/movie.html?id=${movie.id}" class="movie-card">
       <img class="movie-card-img" src="${IMAGE_BASE_URL}${movie.poster_path}" alt="${movie.title}" />
-    </div>
+    </a>
   `;
 }
 
-export function renderMovies(movies) {
+export function renderMovieList(container, movies) {
   const html = movies.map(createMovieCard).join("");
-  moviesList.innerHTML = html;
+  container.innerHTML = html;
 }
