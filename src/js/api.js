@@ -5,6 +5,7 @@ import {
   POPULAR_MOVIES_ENDPOINT,
   POPULAR_SERIES_ENDPOINT,
   MOVIE_DETAILS_ENDPOINT,
+  SERIES_DETAILS_ENDPOINT,
 } from "./constants";
 
 export async function fetchFromApi(endpoint) {
@@ -38,5 +39,10 @@ export async function getPopularSeries() {
 
 export async function getMovieDetails(id) {
   const data = await fetchFromApi(`${MOVIE_DETAILS_ENDPOINT}/${id}`);
+  return data;
+}
+
+export async function getSeriesDetails(id) {
+  const data = await fetchFromApi(`${SERIES_DETAILS_ENDPOINT}/${id}`);
   return data;
 }

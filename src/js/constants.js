@@ -4,4 +4,6 @@ export const TRENDING_ENDPOINT = "/trending/movie/day";
 export const POPULAR_MOVIES_ENDPOINT = "/movie/popular";
 export const POPULAR_SERIES_ENDPOINT = "/tv/popular";
 export const MOVIE_DETAILS_ENDPOINT = "/movie";
-export const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+export const SERIES_DETAILS_ENDPOINT = "/tv";
+export const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
+export const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/original";

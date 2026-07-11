@@ -1,11 +1,9 @@
-import { IMAGE_BASE_URL } from "./constants";
+import { createMovieCard } from "./components/movieCard";
+import { createMovieHero } from "./components/movieHero";
 
-function createMovieCard(movie) {
-  return `
-    <a href="/movie.html?id=${movie.id}" class="movie-card">
-      <img class="movie-card-img" src="${IMAGE_BASE_URL}${movie.poster_path}" alt="${movie.title}" />
-    </a>
-  `;
+export function renderMovieHero(container, movie) {
+  const html = createMovieHero(movie);
+  container.innerHTML = html;
 }
 
 export function renderMovieList(container, movies) {
