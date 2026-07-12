@@ -14,15 +14,15 @@ async function init() {
     ]);
 
     if (trendingList) {
-      renderMovieList(trendingList, trendingMovies);
+      renderMovieList(trendingList, trendingMovies, "movie");
     }
 
     if (moviesList) {
-      renderMovieList(moviesList, popularMovies);
+      renderMovieList(moviesList, popularMovies, "movie");
     }
 
     if (seriesList) {
-      renderMovieList(seriesList, popularSeries);
+      renderMovieList(seriesList, popularSeries, "tv");
     }
   } catch (error) {
     console.error(error);

@@ -6,7 +6,7 @@ export function renderMovieHero(container, movie) {
   container.innerHTML = html;
 }
 
-export function renderMovieList(container, movies) {
-  const html = movies.map(createMovieCard).join("");
+export function renderMovieList(container, movies, type) {
+  const html = movies.map((movie) => createMovieCard(movie, type)).join("");
   container.innerHTML = html;
 }
