@@ -1,3 +1,4 @@
+import { createActorCard } from "./components/actorCard";
 import { createMovieCard } from "./components/movieCard";
 import { createMovieHero } from "./components/movieHero";
 
@@ -9,4 +10,11 @@ export function renderMovieHero(container, movie) {
 export function renderMovieList(container, movies, type) {
   const html = movies.map((movie) => createMovieCard(movie, type)).join("");
   container.innerHTML = html;
+}
+
+export function renderActors(container, actors) {
+  const html = actors.map(createActorCard).join("");
+  container.innerHTML = html;
+  console.log(html);
+  
 }

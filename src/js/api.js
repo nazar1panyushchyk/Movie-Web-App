@@ -6,6 +6,8 @@ import {
   POPULAR_SERIES_ENDPOINT,
   MOVIE_DETAILS_ENDPOINT,
   SERIES_DETAILS_ENDPOINT,
+  MOVIE_CREDITS_ENDPOINT,
+  SERIES_CREDITS_ENDPOINT,
 } from "./constants";
 
 export async function fetchFromApi(endpoint) {
@@ -45,4 +47,16 @@ export async function getMovieDetails(id) {
 export async function getSeriesDetails(id) {
   const data = await fetchFromApi(`${SERIES_DETAILS_ENDPOINT}/${id}`);
   return data;
+}
+
+export async function getMovieCast(id) {
+  const data = await fetchFromApi(`${MOVIE_CREDITS_ENDPOINT}/${id}/credits`);
+  console.log(data.cast);
+  return data.cast;
+}
+
+export async function getSeriesCast(id) {
+  const data = await fetchFromApi(`${SERIES_CREDITS_ENDPOINT}/${id}/credits`);
+  console.log(data.cast);
+  return data.cast;
 }
