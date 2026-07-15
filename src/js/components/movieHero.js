@@ -14,12 +14,12 @@ export function createMovieHero(movie) {
   const genres = formatGenres(movie);
   return `
    <div class="movie-backdrop" style="background-image: url('${BACKDROP_BASE_URL}${movie.backdrop_path}')"></div>
-
    <div class="movie-hero-content">
     <h1 class="movie-hero-title">${movie.title || movie.name}</h1>
     <p>${movieInfo} • ${country}</p>
     <p class="movie-hero-rating">${rating}</p>
     <p class="movie-hero-overview">${movie.overview}</p>
+    <h2>Genres</h2>
     <p>${genres}</p>
   </div>
     `;

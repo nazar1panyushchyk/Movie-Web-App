@@ -1,4 +1,5 @@
 import { createActorCard } from "./components/actorCard";
+import { createDirectorCard } from "./components/directorCard";
 import { createMovieCard } from "./components/movieCard";
 import { createMovieHero } from "./components/movieHero";
 
@@ -15,6 +16,9 @@ export function renderMovieList(container, movies, type) {
 export function renderActors(container, actors) {
   const html = actors.map(createActorCard).join("");
   container.innerHTML = html;
-  console.log(html);
-  
+}
+
+export function renderDirector(container, director, title) {
+  const html = createDirectorCard(director, title);
+  container.innerHTML = html;
 }

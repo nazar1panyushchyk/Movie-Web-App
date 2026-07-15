@@ -51,12 +51,12 @@ export async function getSeriesDetails(id) {
 
 export async function getMovieCast(id) {
   const data = await fetchFromApi(`${MOVIE_CREDITS_ENDPOINT}/${id}/credits`);
-  console.log(data.cast);
-  return data.cast;
+  console.log(data);
+  return data;
 }
 
 export async function getSeriesCast(id) {
   const data = await fetchFromApi(`${SERIES_CREDITS_ENDPOINT}/${id}/credits`);
-  console.log(data.cast);
-  return data.cast;
+  console.log(data);
+  return data;
 }
