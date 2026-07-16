@@ -3,8 +3,8 @@ import { createDirectorCard } from "./components/directorCard";
 import { createMovieCard } from "./components/movieCard";
 import { createMovieHero } from "./components/movieHero";
 
-export function renderMovieHero(container, movie) {
-  const html = createMovieHero(movie);
+export function renderMovieHero(container, movie, trailer) {
+  const html = createMovieHero(movie, trailer);
   container.innerHTML = html;
 }
 
