@@ -9,6 +9,10 @@ export const MOVIE_CREDITS_ENDPOINT = "/movie";
 export const SERIES_CREDITS_ENDPOINT = "/tv";
 export const MOVIE_VIDEOS_ENDPOINT = "/movie";
 export const SERIES_VIDEOS_ENDPOINT = "/tv";
+export const MOVIE_RECOMMENDATIONS_ENDPOINT = "/movie";
+export const SERIES_RECOMMENDATIONS_ENDPOINT = "/tv";
 export const POSTER_BASE_URL = "https://image.tmdb.org/t/p/w500";
 export const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/original";
 export const PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+export const FAVORITES_KEY = "favorites";
+    

@@ -10,6 +10,8 @@ import {
   SERIES_CREDITS_ENDPOINT,
   MOVIE_VIDEOS_ENDPOINT,
   SERIES_VIDEOS_ENDPOINT,
+  MOVIE_RECOMMENDATIONS_ENDPOINT,
+  SERIES_RECOMMENDATIONS_ENDPOINT,
 } from "./constants";
 
 export async function fetchFromApi(endpoint) {
@@ -68,5 +70,19 @@ export async function getMovieVideos(id) {
 
 export async function getSeriesVideos(id) {
   const data = await fetchFromApi(`${SERIES_VIDEOS_ENDPOINT}/${id}/videos`);
+  return data.results;
+}
+
+export async function getMovieRecommendations(id) {
+  const data = await fetchFromApi(
+    `${MOVIE_RECOMMENDATIONS_ENDPOINT}/${id}/recommendations`,
+  );
+  return data.results;
+}
+
+export async function getSeriesRecommendations(id) {
+  const data = await fetchFromApi(
+    `${SERIES_RECOMMENDATIONS_ENDPOINT}/${id}/recommendations`,
+  );
   return data.results;
 }
