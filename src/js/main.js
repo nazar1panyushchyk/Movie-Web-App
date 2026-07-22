@@ -1,5 +1,6 @@
 import { getTrendingMovies, getPopularMovies, getPopularSeries } from "./api";
 import { renderMovieList } from "./render";
+import { initSearch } from "./search";
 
 const trendingList = document.querySelector(".trending-list");
 const moviesList = document.querySelector(".movies-list");
@@ -30,3 +31,4 @@ async function init() {
 }
 
 init();
+initSearch();

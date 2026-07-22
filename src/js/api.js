@@ -12,11 +12,18 @@ import {
   SERIES_VIDEOS_ENDPOINT,
   MOVIE_RECOMMENDATIONS_ENDPOINT,
   SERIES_RECOMMENDATIONS_ENDPOINT,
+  MULTI_SEARCH_ENDPOINT,
 } from "./constants";
 
 export async function fetchFromApi(endpoint) {
   try {
-    const response = await fetch(`${BASE_URL}${endpoint}?api_key=${API_KEY}`);
+    let url;
+    if (endpoint.includes("?")) {
+      url = `${BASE_URL}${endpoint}&api_key=${API_KEY}`;
+    } else {
+      url = `${BASE_URL}${endpoint}?api_key=${API_KEY}`;
+    }
+    const response = await fetch(url);
 
     if (!response.ok) {
       throw new Error(`Помилка статусу: ${response.status}`);
@@ -86,3 +93,11 @@ export async function getSeriesRecommendations(id) {
   );
   return data.results;
 }
+
+export async function getMultiSearchResults(query) {
+  const data = await fetchFromApi(
+    `${MULTI_SEARCH_ENDPOINT}?query=${encodeURIComponent(query)}`,
+  );
+  return data.results;
+}
+

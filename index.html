@@ -8,9 +8,23 @@
     <title>Movie-Web-App</title>
   </head>
   <body>
-    <header></header>
+    <header>
+      <a href="">Home</a>
+      <a href="">Movies</a>
+      <a href="">Series</a>
+      <a href="./src/pages/favorites.html">Favorites</a>
+      <form class="search-form">
+        <input type="search" class="search-input" placeholder="Search movies or TV shows..." required>
+        <button type="submit">Search</button>
+      </form>
+    </header>
     <main>
       <section class="hero"></section>
+
+      <section class="search-results hidden">
+        <h2>Search Results</h2>
+        <div class="search-results-list"></div>
+      </section>
 
       <section class="trending">
         <h2>Trends</h2>

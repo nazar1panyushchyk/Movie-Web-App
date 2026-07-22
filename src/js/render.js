@@ -22,3 +22,8 @@ export function renderDirector(container, director, title) {
   const html = createDirectorCard(director, title);
   container.innerHTML = html;
 }
+
+export function renderSearchResults(container, results) {
+  const html = results.map((result) => createMovieCard(result, result.media_type)).join("");
+  container.innerHTML = html;
+}

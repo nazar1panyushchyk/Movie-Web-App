@@ -3,3 +3,7 @@
   height: 296px;
   border-radius: 12px;
 }
+
+.hidden {
+  display: none;
+}
