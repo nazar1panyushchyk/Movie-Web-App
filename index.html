@@ -3,7 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" href="./src/css/movie-card.css" />
-    <link rel="icon" type="image/svg+xml" href="/src/assets/img/head-logo.svg" />
+    <link rel="stylesheet" href="./src/css/genres.css">
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/src/assets/img/head-logo.svg"
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Movie-Web-App</title>
   </head>
@@ -14,7 +19,12 @@
       <a href="">Series</a>
       <a href="./src/pages/favorites.html">Favorites</a>
       <form class="search-form">
-        <input type="search" class="search-input" placeholder="Search movies or TV shows..." required>
+        <input
+          type="search"
+          class="search-input"
+          placeholder="Search movies or TV shows..."
+          required
+        />
         <button type="submit">Search</button>
       </form>
     </header>
@@ -35,13 +45,15 @@
       <section class="movies">
         <h2>Movies</h2>
         <p>See More</p>
-         <div class="movies-list"></div>
+        <div class="movies-genres"></div>
+        <div class="movies-list"></div>
       </section>
 
       <section class="series">
         <h2>Series</h2>
         <p>See More</p>
-         <div class="series-list"></div>
+        <div class="series-genres"></div>
+        <div class="series-list"></div>
       </section>
     </main>
 

@@ -16,3 +16,5 @@ export const BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/original";
 export const PROFILE_BASE_URL = "https://image.tmdb.org/t/p/w500";
 export const FAVORITES_KEY = "favorites";
 export const MULTI_SEARCH_ENDPOINT = "/search/multi";
+export const MOVIE_GENRES_ENDPOINT = "/genre/movie/list";
+export const SERIES_GENRES_ENDPOINT = "/genre/tv/list";

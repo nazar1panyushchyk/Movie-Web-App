@@ -13,6 +13,8 @@ import {
   MOVIE_RECOMMENDATIONS_ENDPOINT,
   SERIES_RECOMMENDATIONS_ENDPOINT,
   MULTI_SEARCH_ENDPOINT,
+  MOVIE_GENRES_ENDPOINT,
+  SERIES_GENRES_ENDPOINT
 } from "./constants";
 
 export async function fetchFromApi(endpoint) {
@@ -99,5 +101,15 @@ export async function getMultiSearchResults(query) {
     `${MULTI_SEARCH_ENDPOINT}?query=${encodeURIComponent(query)}`,
   );
   return data.results;
+}
+
+export async function getMovieGenres() {
+  const data = await fetchFromApi(MOVIE_GENRES_ENDPOINT);
+  return data.genres;
+}
+
+export async function getSeriesGenres() {
+  const data = await fetchFromApi(SERIES_GENRES_ENDPOINT);
+  return data.genres;
 }
 
