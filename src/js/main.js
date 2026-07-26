@@ -5,7 +5,7 @@ import {
   getMovieGenres,
   getSeriesGenres,
 } from "./api";
-import { renderGenreList, renderMovieList } from "./render";
+import { renderGenreList, renderMediaList } from "./render";
 import { initSearch } from "./search";
 
 const trendingList = document.querySelector(".trending-list");
@@ -15,13 +15,44 @@ const moviesGenresList = document.querySelector(".movies-genres");
 const seriesGenresList = document.querySelector(".series-genres");
 let popularMovies = [];
 let popularSeries = [];
-let selectedMovieGenres = [];
-let selectedSeriesGenres = [];
+const selectedMovieGenres = [];
+const selectedSeriesGenres = [];
 
 function filterByGenres(mediaList, selectedGenres) {
   return mediaList.filter((media) =>
     media.genre_ids.some((genreId) => selectedGenres.includes(genreId)),
   );
+}
+
+function updateMediaList({
+  mediaList,
+  selectedGenres,
+  container,
+  type,
+  emptyMessage,
+}) {
+  if (selectedGenres.length === 0) {
+    renderMediaList(container, mediaList, type);
+    return;
+  }
+
+  const filteredMedia = filterByGenres(mediaList, selectedGenres);
+
+  if (filteredMedia.length === 0) {
+    container.textContent = emptyMessage;
+    return;
+  }
+
+  renderMediaList(container, filteredMedia, type);
+}
+
+function toggleGenre(genreId, selectedGenres) {
+  if (selectedGenres.includes(genreId)) {
+    const index = selectedGenres.indexOf(genreId);
+    selectedGenres.splice(index, 1);
+  } else {
+    selectedGenres.push(genreId);
+  }
 }
 
 async function init() {
@@ -39,15 +70,15 @@ async function init() {
     popularSeries = series;
 
     if (trendingList) {
-      renderMovieList(trendingList, trendingMovies, "movie");
+      renderMediaList(trendingList, trendingMovies, "movie");
     }
 
     if (moviesList) {
-      renderMovieList(moviesList, popularMovies, "movie");
+      renderMediaList(moviesList, popularMovies, "movie");
     }
 
     if (seriesList) {
-      renderMovieList(seriesList, popularSeries, "tv");
+      renderMediaList(seriesList, popularSeries, "tv");
     }
 
     if (moviesGenresList) {
@@ -65,41 +96,25 @@ async function init() {
         const type = button.dataset.type;
         button.classList.toggle("active");
         if (type === "movie") {
-          if (selectedMovieGenres.includes(genreId)) {
-            const index = selectedMovieGenres.indexOf(genreId);
-            selectedMovieGenres.splice(index, 1);
-          } else {
-            selectedMovieGenres.push(genreId);
-          }
-        }
-
-        if (selectedMovieGenres.length === 0) {
-          renderMovieList(moviesList, popularMovies, "movie");
-        } else {
-          const filteredMovies = filterByGenres(
-            popularMovies,
-            selectedMovieGenres,
-          );
-          renderMovieList(moviesList, filteredMovies, "movie");
+          toggleGenre(genreId, selectedMovieGenres);
+          updateMediaList({
+            mediaList: popularMovies,
+            selectedGenres: selectedMovieGenres,
+            container: moviesList,
+            type: "movie",
+            emptyMessage: "No movies found for the selected genres.",
+          });
         }
 
         if (type === "tv") {
-          if (selectedSeriesGenres.includes(genreId)) {
-            const index = selectedSeriesGenres.indexOf(genreId);
-            selectedSeriesGenres.splice(index, 1);
-          } else {
-            selectedSeriesGenres.push(genreId);
-          }
-        }
-
-        if (selectedSeriesGenres.length === 0) {
-          renderMovieList(seriesList, popularSeries, "tv");
-        } else {
-          const filteredSeries = filterByGenres(
-            popularSeries,
-            selectedSeriesGenres,
-          );
-          renderMovieList(seriesList, filteredSeries, "tv");
+          toggleGenre(genreId, selectedSeriesGenres);
+          updateMediaList({
+            mediaList: popularSeries,
+            selectedGenres: selectedSeriesGenres,
+            container: seriesList,
+            type: "tv",
+            emptyMessage: "No TV series found for the selected genres.",
+          });
         }
       });
     });

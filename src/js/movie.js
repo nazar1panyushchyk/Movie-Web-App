@@ -13,7 +13,7 @@ import {
   renderActors,
   renderMovieHero,
   renderDirector,
-  renderMovieList,
+  renderMediaList,
 } from "./render";
 import { openTrailerModal } from "./trailerModal";
 
@@ -109,7 +109,7 @@ async function init() {
     }
 
     if (recommendations.length > 0) {
-      renderMovieList(recommendationsList, recommendations.slice(0, 8), type);
+      renderMediaList(recommendationsList, recommendations.slice(0, 8), type);
     } else {
       return "Not found";
     }

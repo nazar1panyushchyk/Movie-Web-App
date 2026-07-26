@@ -10,7 +10,7 @@ export function renderMovieHero(container, movie, trailer) {
   container.innerHTML = html;
 }
 
-export function renderMovieList(container, movies, type) {
+export function renderMediaList(container, movies, type) {
   const html = movies.map((movie) => createMovieCard(movie, type)).join("");
   container.innerHTML = html;
 }
