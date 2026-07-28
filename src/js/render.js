@@ -4,6 +4,18 @@ import { createFavoriteCard } from "./components/favoriteCard";
 import { createMovieCard } from "./components/movieCard";
 import { createMovieHero } from "./components/movieHero";
 import { createGenreButton } from "./components/genreButton";
+import { createHomeHero } from "./components/homeHero";
+import { createHeroCarousel } from "./components/heroCarousel";
+
+export function renderHomeHero(container, activeMedia, mediaList) {
+  const html = createHomeHero(activeMedia, mediaList);
+  container.innerHTML = html;
+}
+
+export function renderHeroCarousel(container, mediaList) {
+  const html = createHeroCarousel(mediaList);
+  container.innerHTML = html;
+}
 
 export function renderMovieHero(container, movie, trailer) {
   const html = createMovieHero(movie, trailer);
@@ -26,7 +38,9 @@ export function renderDirector(container, director, title) {
 }
 
 export function renderSearchResults(container, results) {
-  const html = results.map((result) => createMovieCard(result, result.media_type)).join("");
+  const html = results
+    .map((result) => createMovieCard(result, result.media_type))
+    .join("");
   container.innerHTML = html;
 }
 

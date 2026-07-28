@@ -4,15 +4,20 @@ import {
   getPopularSeries,
   getMovieGenres,
   getSeriesGenres,
+  getTrendingMedia,
 } from "./api";
-import { renderGenreList, renderMediaList } from "./render";
+import { renderGenreList, renderHeroCarousel, renderHomeHero, renderMediaList } from "./render";
 import { initSearch } from "./search";
 
+const heroContainer = document.querySelector(".hero");
+const heroCarouselContainer = document.querySelector(".hero-carousel");
 const trendingList = document.querySelector(".trending-list");
 const moviesList = document.querySelector(".movies-list");
 const seriesList = document.querySelector(".series-list");
 const moviesGenresList = document.querySelector(".movies-genres");
 const seriesGenresList = document.querySelector(".series-genres");
+let heroMedia = [];
+let activeHeroMedia = null;
 let popularMovies = [];
 let popularSeries = [];
 const selectedMovieGenres = [];
@@ -57,17 +62,36 @@ function toggleGenre(genreId, selectedGenres) {
 
 async function init() {
   try {
-    const [trendingMovies, movies, series, moviesGenres, seriesGenres] =
-      await Promise.all([
-        getTrendingMovies(),
-        getPopularMovies(),
-        getPopularSeries(),
-        getMovieGenres(),
-        getSeriesGenres(),
-      ]);
+    const [
+      trendingMedia,
+      trendingMovies,
+      movies,
+      series,
+      moviesGenres,
+      seriesGenres,
+    ] = await Promise.all([
+      getTrendingMedia(),
+      getTrendingMovies(),
+      getPopularMovies(),
+      getPopularSeries(),
+      getMovieGenres(),
+      getSeriesGenres(),
+    ]);
 
+    heroMedia = trendingMedia;
+    activeHeroMedia = trendingMedia[0];
     popularMovies = movies;
     popularSeries = series;
+
+    const heroCarouselMedia = heroMedia.slice(0, 4);
+
+    if (heroContainer) {
+      renderHomeHero(heroContainer, activeHeroMedia, heroCarouselMedia);
+    }
+
+    if (heroCarouselContainer) {
+      renderHeroCarousel(heroCarouselContainer, heroMedia);
+    }
 
     if (trendingList) {
       renderMediaList(trendingList, trendingMovies, "movie");
@@ -88,6 +112,16 @@ async function init() {
     if (seriesGenresList) {
       renderGenreList(seriesGenresList, seriesGenres, "tv");
     }
+
+    const heroCarouselItem = document.querySelectorAll(".hero-carousel-item");
+    heroCarouselItem.forEach((button) => {
+      button.addEventListener("click", () => {
+        const id = Number(button.dataset.id);
+        heroMedia.find()
+        activeHeroMedia;
+        renderHomeHero(id);
+      })
+    })
 
     const genresButtons = document.querySelectorAll(".genre-btn");
     genresButtons.forEach((button) => {

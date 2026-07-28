@@ -14,7 +14,8 @@ import {
   SERIES_RECOMMENDATIONS_ENDPOINT,
   MULTI_SEARCH_ENDPOINT,
   MOVIE_GENRES_ENDPOINT,
-  SERIES_GENRES_ENDPOINT
+  SERIES_GENRES_ENDPOINT,
+  TRENDING_ALL_ENDPOINT,
 } from "./constants";
 
 export async function fetchFromApi(endpoint) {
@@ -35,6 +36,11 @@ export async function fetchFromApi(endpoint) {
   } catch (error) {
     throw error;
   }
+}
+
+export async function getTrendingMedia() {
+  const data = await fetchFromApi(TRENDING_ALL_ENDPOINT);
+  return data.results;
 }
 
 export async function getTrendingMovies() {
@@ -112,4 +118,3 @@ export async function getSeriesGenres() {
   const data = await fetchFromApi(SERIES_GENRES_ENDPOINT);
   return data.genres;
 }
-
