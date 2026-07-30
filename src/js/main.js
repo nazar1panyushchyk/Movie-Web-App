@@ -6,11 +6,16 @@ import {
   getSeriesGenres,
   getTrendingMedia,
 } from "./api";
-import { renderGenreList, renderHeroCarousel, renderHomeHero, renderMediaList } from "./render";
+import {
+  renderGenreList,
+  renderHeroCarousel,
+  renderHomeHeroContent,
+  renderMediaList,
+} from "./render";
 import { initSearch } from "./search";
 
-const heroContainer = document.querySelector(".hero");
-const heroCarouselContainer = document.querySelector(".hero-carousel");
+const heroContent = document.querySelector(".hero-content");
+const heroCarousel = document.querySelector(".hero-carousel");
 const trendingList = document.querySelector(".trending-list");
 const moviesList = document.querySelector(".movies-list");
 const seriesList = document.querySelector(".series-list");
@@ -85,12 +90,12 @@ async function init() {
 
     const heroCarouselMedia = heroMedia.slice(0, 4);
 
-    if (heroContainer) {
-      renderHomeHero(heroContainer, activeHeroMedia, heroCarouselMedia);
+    if (heroContent) {
+      renderHomeHeroContent(heroContent, activeHeroMedia);
     }
 
-    if (heroCarouselContainer) {
-      renderHeroCarousel(heroCarouselContainer, heroMedia);
+    if (heroCarousel) {
+      renderHeroCarousel(heroCarousel, heroCarouselMedia);
     }
 
     if (trendingList) {
@@ -113,15 +118,29 @@ async function init() {
       renderGenreList(seriesGenresList, seriesGenres, "tv");
     }
 
-    const heroCarouselItem = document.querySelectorAll(".hero-carousel-item");
-    heroCarouselItem.forEach((button) => {
-      button.addEventListener("click", () => {
-        const id = Number(button.dataset.id);
-        heroMedia.find()
-        activeHeroMedia;
-        renderHomeHero(id);
-      })
-    })
+    heroCarousel.addEventListener("click", (event) => {
+      const heroCarouselButton = event.target.closest(".hero-carousel-item");
+      if (!heroCarouselButton) return;
+      const id = Number(heroCarouselButton.dataset.id);
+      const selectedHeroMedia = heroMedia.find((media) => media.id === id);
+      if (selectedHeroMedia) {
+        activeHeroMedia = selectedHeroMedia;
+      } else {
+        console.warn("No found media.");
+        return;
+      }
+      renderHomeHeroContent(heroContent, activeHeroMedia);
+      const activeCarouselButton = heroCarousel.querySelector(
+        ".hero-carousel-item.active",
+      );
+
+      if (heroCarouselButton === activeCarouselButton) return;
+
+      if (activeCarouselButton) {
+        activeCarouselButton.classList.remove("active");
+      }
+      heroCarouselButton.classList.add("active");
+    });
 
     const genresButtons = document.querySelectorAll(".genre-btn");
     genresButtons.forEach((button) => {

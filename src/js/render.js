@@ -4,11 +4,11 @@ import { createFavoriteCard } from "./components/favoriteCard";
 import { createMovieCard } from "./components/movieCard";
 import { createMovieHero } from "./components/movieHero";
 import { createGenreButton } from "./components/genreButton";
-import { createHomeHero } from "./components/homeHero";
+import { createHomeHeroContent } from "./components/homeHeroContent";
 import { createHeroCarousel } from "./components/heroCarousel";
 
-export function renderHomeHero(container, activeMedia, mediaList) {
-  const html = createHomeHero(activeMedia, mediaList);
+export function renderHomeHeroContent(container, activeMedia, mediaList) {
+  const html = createHomeHeroContent(activeMedia, mediaList);
   container.innerHTML = html;
 }
 
