@@ -5,7 +5,12 @@ import {
   getMovieGenres,
   getSeriesGenres,
   getTrendingMedia,
+  getMovieVideos,
+  getSeriesVideos,
 } from "./api";
+import { findTrailer } from "./findTrailer";
+import { initGenreFilter } from "./genreFilter";
+import { initHeroCarousel } from "./heroCarousel";
 import {
   renderGenreList,
   renderHeroCarousel,
@@ -13,6 +18,8 @@ import {
   renderMediaList,
 } from "./render";
 import { initSearch } from "./search";
+import { openTrailerModal } from "./trailerModal";
+import { updateMediaList } from "./updateMediaList";
 
 const heroContent = document.querySelector(".hero-content");
 const heroCarousel = document.querySelector(".hero-carousel");
@@ -27,43 +34,6 @@ let popularMovies = [];
 let popularSeries = [];
 const selectedMovieGenres = [];
 const selectedSeriesGenres = [];
-
-function filterByGenres(mediaList, selectedGenres) {
-  return mediaList.filter((media) =>
-    media.genre_ids.some((genreId) => selectedGenres.includes(genreId)),
-  );
-}
-
-function updateMediaList({
-  mediaList,
-  selectedGenres,
-  container,
-  type,
-  emptyMessage,
-}) {
-  if (selectedGenres.length === 0) {
-    renderMediaList(container, mediaList, type);
-    return;
-  }
-
-  const filteredMedia = filterByGenres(mediaList, selectedGenres);
-
-  if (filteredMedia.length === 0) {
-    container.textContent = emptyMessage;
-    return;
-  }
-
-  renderMediaList(container, filteredMedia, type);
-}
-
-function toggleGenre(genreId, selectedGenres) {
-  if (selectedGenres.includes(genreId)) {
-    const index = selectedGenres.indexOf(genreId);
-    selectedGenres.splice(index, 1);
-  } else {
-    selectedGenres.push(genreId);
-  }
-}
 
 async function init() {
   try {
@@ -92,10 +62,34 @@ async function init() {
 
     if (heroContent) {
       renderHomeHeroContent(heroContent, activeHeroMedia);
+
+      heroContent.addEventListener("click", async (event) => {
+        let videos;
+        const trailerBtn = event.target.closest(".hero-trailer-btn");
+        if (!trailerBtn) return;
+        if (activeHeroMedia.media_type === "movie") {
+          videos = await getMovieVideos(activeHeroMedia.id);
+        } else if (activeHeroMedia.media_type === "tv") {
+          videos = await getSeriesVideos(activeHeroMedia.id);
+        }
+
+        if (!videos) return;
+
+        const trailer = findTrailer(videos);
+
+        if (!trailer) return;
+
+        openTrailerModal(trailer.key);
+      });
     }
 
     if (heroCarousel) {
       renderHeroCarousel(heroCarousel, heroCarouselMedia);
+
+      initHeroCarousel(heroCarousel, heroMedia, (selectedHeroMedia) => {
+        activeHeroMedia = selectedHeroMedia;
+        renderHomeHeroContent(heroContent, activeHeroMedia);
+      });
     }
 
     if (trendingList) {
@@ -112,44 +106,11 @@ async function init() {
 
     if (moviesGenresList) {
       renderGenreList(moviesGenresList, moviesGenres, "movie");
-    }
 
-    if (seriesGenresList) {
-      renderGenreList(seriesGenresList, seriesGenres, "tv");
-    }
-
-    heroCarousel.addEventListener("click", (event) => {
-      const heroCarouselButton = event.target.closest(".hero-carousel-item");
-      if (!heroCarouselButton) return;
-      const id = Number(heroCarouselButton.dataset.id);
-      const selectedHeroMedia = heroMedia.find((media) => media.id === id);
-      if (selectedHeroMedia) {
-        activeHeroMedia = selectedHeroMedia;
-      } else {
-        console.warn("No found media.");
-        return;
-      }
-      renderHomeHeroContent(heroContent, activeHeroMedia);
-      const activeCarouselButton = heroCarousel.querySelector(
-        ".hero-carousel-item.active",
-      );
-
-      if (heroCarouselButton === activeCarouselButton) return;
-
-      if (activeCarouselButton) {
-        activeCarouselButton.classList.remove("active");
-      }
-      heroCarouselButton.classList.add("active");
-    });
-
-    const genresButtons = document.querySelectorAll(".genre-btn");
-    genresButtons.forEach((button) => {
-      button.addEventListener("click", () => {
-        const genreId = Number(button.dataset.genreId);
-        const type = button.dataset.type;
-        button.classList.toggle("active");
-        if (type === "movie") {
-          toggleGenre(genreId, selectedMovieGenres);
+      initGenreFilter({
+        genresContainer: moviesGenresList,
+        selectedGenres: selectedMovieGenres,
+        onFilterChange: () => {
           updateMediaList({
             mediaList: popularMovies,
             selectedGenres: selectedMovieGenres,
@@ -157,10 +118,17 @@ async function init() {
             type: "movie",
             emptyMessage: "No movies found for the selected genres.",
           });
-        }
+        },
+      });
+    }
 
-        if (type === "tv") {
-          toggleGenre(genreId, selectedSeriesGenres);
+    if (seriesGenresList) {
+      renderGenreList(seriesGenresList, seriesGenres, "tv");
+
+      initGenreFilter({
+        genresContainer: seriesGenresList,
+        selectedGenres: selectedSeriesGenres,
+        onFilterChange: () => {
           updateMediaList({
             mediaList: popularSeries,
             selectedGenres: selectedSeriesGenres,
@@ -168,9 +136,9 @@ async function init() {
             type: "tv",
             emptyMessage: "No TV series found for the selected genres.",
           });
-        }
+        },
       });
-    });
+    }
   } catch (error) {
     console.error(error);
   }

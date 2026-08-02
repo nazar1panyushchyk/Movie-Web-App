@@ -1,8 +1,7 @@
 import { formatRating } from "../utils/formatRating";
 import { BACKDROP_BASE_URL } from "../constants";
-import { createHeroCarousel } from "./heroCarousel";
 
-export function createHomeHeroContent(activeMedia, mediaList) {
+export function createHomeHeroContent(activeMedia) {
   const mediaTitle = activeMedia.title || activeMedia.name;
   const rating = formatRating(activeMedia.vote_average);
   return `
@@ -13,8 +12,7 @@ export function createHomeHeroContent(activeMedia, mediaList) {
       <p class="hero-overview">${activeMedia.overview}</p>
       <p class="hero-rating">${rating}</p>
       <button type="button" class="hero-trailer-btn">Watch Trailer</button>
-      <button type="button" class="hero-info-btn">More Info -></button>
+      <a href="movie.html?id=${activeMedia.id}&type=${activeMedia.media_type}" class="hero-info-link">More Info -></a>
      </div>
-     
     `;
 }

@@ -9,6 +9,7 @@ import {
   getSeriesRecommendations,
 } from "./api";
 import { addToFavorites, isFavorite, removeFromFavorites } from "./favorites";
+import { findTrailer } from "./findTrailer";
 import {
   renderActors,
   renderMovieHero,
@@ -56,13 +57,11 @@ async function init() {
       recommendations = await getSeriesRecommendations(id);
     }
 
-    const trailer =
-      videos.find(
-        (video) => video.site === "YouTube" && video.type === "Trailer",
-      ) ||
-      videos.find(
-        (video) => video.site === "YouTube" && video.type === "Teaser",
-      );
+    const trailer = findTrailer(videos);
+    renderMovieHero(movieHero, media, trailer);
+    // if (trailer) {
+    //   openTrailerModal(trailer.key);
+    // }
     actors = credits.cast;
     const title = type === "movie" ? "Director" : "Creator";
     const mediaTitle = media.title || media.name;
