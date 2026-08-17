@@ -2,8 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" href="./src/css/variables.css" />
     <link rel="stylesheet" href="./src/css/header.css" />
     <link rel="stylesheet" href="./src/css/hero.css" />
+    <link rel="stylesheet" href="./src/css/sections.css" />
     <link rel="stylesheet" href="./src/css/movie-card.css" />
     <link rel="stylesheet" href="./src/css/genres.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -53,28 +55,30 @@
         <div class="search-results-list"></div>
       </section>
 
-      <section class="trending">
+      <section class="trending content-section">
         <h2>Trends</h2>
-        <p>See More</p>
-        <div class="trending-list"></div>
+        <p class="section-link">See More</p>
+        <div class="trending-list media-row"></div>
       </section>
 
-      <section class="movies">
+      <section class="movies content-section">
         <h2>Movies</h2>
-        <p>See More</p>
-        <div class="movies-genres"></div>
-        <div class="movies-list"></div>
+        <p class="section-link">See More</p>
+        <div class="movies-genres genre-row"></div>
+        <div class="movies-list media-row"></div>
       </section>
 
-      <section class="series">
+      <section class="series content-section">
         <h2>Series</h2>
-        <p>See More</p>
-        <div class="series-genres"></div>
-        <div class="series-list"></div>
+        <p class="section-link">See More</p>
+        <div class="series-genres genre-row"></div>
+        <div class="series-list media-row"></div>
       </section>
     </main>
 
-    <footer></footer>
+    <footer>
+      <p>Movie &amp; Series Website</p>
+    </footer>
     <script type="module" src="./src/js/main.js"></script>
   </body>
 </html>

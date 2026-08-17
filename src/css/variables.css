@@ -1,0 +1,44 @@
+:root {
+  /* Colors */
+  --color-bg: #eafaff;
+  --color-bg-soft: #dff6ff;
+  --color-bg-elevated: rgba(235, 250, 255, 0.7);
+  --color-surface-glass: rgba(112, 165, 210, 0.36);
+  --color-text: #091e51;
+  --color-text-muted: rgba(9, 30, 81, 0.62);
+  --color-text-strong: #030a1b;
+  --color-accent: #228ee5;
+  --color-accent-border: rgba(34, 142, 229, 0.58);
+  --color-accent-soft: #a8dfff;
+  --color-rating: #f3cf2d;
+  --color-card-shadow: rgba(3, 10, 27, 0.28);
+
+  /* Typography */
+  --font-family: "Lato", sans-serif;
+  --font-size-body: 13px;
+  --font-size-nav: 14px;
+  --font-size-section-title: clamp(22px, 2.2vw, 28px);
+  --font-size-card-title: 14px;
+  --font-weight-bold: 700;
+  --font-weight-black: 900;
+
+  /* Layout */
+  --content-max-width: 1080px;
+  --header-height: 68px;
+  --section-padding-x: clamp(24px, 4.6vw, 58px);
+  --section-gap: clamp(40px, 5vw, 56px);
+  --section-header-gap: clamp(16px, 2vw, 24px);
+  --card-width: 208px;
+  --card-height: 296px;
+  --card-radius: 12px;
+  --card-gap: clamp(16px, 2vw, 20px);
+
+  /* Radii & effects */
+  --radius-pill: 999px;
+  --radius-header: 10px;
+  --radius-carousel: 16px;
+  --shadow-header: 0 18px 42px rgba(6, 48, 91, 0.14);
+  --shadow-card: 0 14px 28px rgba(3, 10, 27, 0.12);
+  --shadow-card-hover: 0 18px 36px rgba(3, 10, 27, 0.2);
+  --blur-glass: 14px;
+}
