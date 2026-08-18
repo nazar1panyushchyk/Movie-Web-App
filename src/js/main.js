@@ -55,8 +55,8 @@ async function init() {
 
     heroMedia = trendingMedia;
     activeHeroMedia = trendingMedia[0];
-    popularMovies = movies;
-    popularSeries = series;
+    popularMovies = movies.results;
+    popularSeries = series.results;
 
     const heroCarouselMedia = heroMedia.slice(0, 4);
 

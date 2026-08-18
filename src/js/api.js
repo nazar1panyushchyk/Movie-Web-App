@@ -48,14 +48,20 @@ export async function getTrendingMovies() {
   return data.results;
 }
 
-export async function getPopularMovies() {
-  const data = await fetchFromApi(POPULAR_MOVIES_ENDPOINT);
-  return data.results;
+export async function getPopularMovies(page = 1) {
+  const data = await fetchFromApi(`${POPULAR_MOVIES_ENDPOINT}?page=${page}`);
+  return {
+    results: data.results,
+    totalPages: data.total_pages,
+  };
 }
 
-export async function getPopularSeries() {
-  const data = await fetchFromApi(POPULAR_SERIES_ENDPOINT);
-  return data.results;
+export async function getPopularSeries(page = 1) {
+  const data = await fetchFromApi(`${POPULAR_SERIES_ENDPOINT}?page=${page}`);
+  return {
+    results: data.results,
+    totalPages: data.total_pages,
+  };
 }
 
 export async function getMovieDetails(id) {

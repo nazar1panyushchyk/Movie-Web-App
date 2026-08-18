@@ -22,8 +22,8 @@ export function renderMovieHero(container, movie, trailer) {
   container.innerHTML = html;
 }
 
-export function renderMediaList(container, movies, type) {
-  const html = movies.map((movie) => createMovieCard(movie, type)).join("");
+export function renderMediaList(container, mediaList, type) {
+  const html = mediaList.map((media) => createMovieCard(media, type)).join("");
   container.innerHTML = html;
 }
 

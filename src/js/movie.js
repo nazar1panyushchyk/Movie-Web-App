@@ -59,9 +59,6 @@ async function init() {
 
     const trailer = findTrailer(videos);
     renderMovieHero(movieHero, media, trailer);
-    // if (trailer) {
-    //   openTrailerModal(trailer.key);
-    // }
     actors = credits.cast;
     const title = type === "movie" ? "Director" : "Creator";
     const mediaTitle = media.title || media.name;
